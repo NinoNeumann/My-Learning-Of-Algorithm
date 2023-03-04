@@ -1,29 +1,38 @@
-//
-// Created by Nino Neumann on 2023/3/1.
-//
-// 经典矩阵前缀和 子矩阵前缀和
 #include<iostream>
 using namespace std;
 
-int f[N][N],d[N][N];
-int n;// 记录矩阵的大小
+const int N = 5010;
+int g[N][N];
 
-int init_d_matrix(){
-    for(int i = 1;i<=n;++i){
-        for(int j = 1;j<=n;++j){
-            d[i][j] += d[i-1][j-1]-d[i][j-1]-d[i-1][j];
-        }
-    }
-}
 
-int ssm(int x1,int y1,int x2,int y2){
-    // 第x1 y1是左上角的坐标
-    return d[x1-1][y1-1]+d[x2][y2]-d[x1-1][y2]-d[x2][y1-1];
-}
-
-const int N = 999;
 
 int main(){
+    int n,r;
+    // 由于后面在计算前缀和的时候需要保证可计算范围得是个正数 要不然for循环无法进行
+    cin>>n>>r;
+    r = min(5001, r); // 因为r最大可以取 10^9 遇到一些特殊的值的时候可以将r取一个固定上界。
+    int max_x = N-9,max_y = N-9;
+    for(int i = 0,x,y,w;i<n;++i){
+        cin>>x>>y>>w;
+        // x++,y++;
+
+        g[x+1][y+1] += w;
+        // cout<<g[x][y]<<endl;
+        // max_x = max(max_x,x+1),max_y = max(max_y,y+1);
+    }
+    // cout<<max_x<<" " <<" " <<max_y<<endl;
+    int res = 0;
+    for(int i = 1;i<=max_x;++i)
+        for(int j = 1;j<=max_y;++j)
+            g[i][j] += g[i-1][j]+g[i][j-1]-g[i-1][j-1];
+
+    for(int i = 1;i<=max_x-r+1;++i)
+        for(int j = 1;j<=max_y-r+1;++j)
+            res = max(res,g[i+r-1][j+r-1]+g[i-1][j-1]-g[i+r-1][j-1]-g[i-1][j+r-1]);
+    // for(int i = r;i<=max_x;++i)
+    //     for(int j = r;j<=max_y;++j)
+    //         res = max(res,g[i][j]-g[i-r][j]-g[i][j-r]+g[i-r][j-r]);
+    cout<<res<<endl;
 
 
     return 0;
