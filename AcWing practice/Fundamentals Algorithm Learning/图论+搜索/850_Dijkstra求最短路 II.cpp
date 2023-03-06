@@ -59,16 +59,15 @@ int dijkstra(){
     dist[1] = 0;
     for(int i = 0;i<n;++i){
         int t = -1;
-        for(int j = 1;j<=n;++j){
+        for(int j = 1;j<=n;++j)
             if(!st[j] && (t==-1 || dist[t]>dist[j])) t = j;
             st[t] = true;
-            for(auto x:g[t].e){
-                dist[x.o] = min(dist[x.o],dist[t]+x.w);
-            }
+        for(auto x:g[t].e){
+            dist[x.o] = min(dist[x.o],dist[t]+x.w);
+        }
 //            for(int j = 1;j<=n;++j){
 //                dist[j] = min(dist[j],dist[t]+w[t]);  // w[t]
 //            }
-        }
     }
     if(dist[n]==INF) return -1;
     return dist[n];
