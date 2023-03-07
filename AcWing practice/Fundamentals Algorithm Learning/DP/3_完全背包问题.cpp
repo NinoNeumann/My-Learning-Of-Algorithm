@@ -22,7 +22,7 @@ int f[N][N];
 int main(){
     cin>>n>>m;
     for(int i = 1;i<=n;++i)
-        cin>>v[i]>>w[i];
+         cin>>v[i]>>w[i];
     // 二维版本：
     for(int i = 1;i<=n;++i){
         for(int j = 1;j<=m;++j){

@@ -8,7 +8,7 @@
 #include<iostream>
 using namespace std;
 
-const int N = 110;
+const int N = 11000;
 
 int g[N],f[N][N];
 int n,m;
@@ -17,17 +17,20 @@ int main(){
     // 输入
     cin>>n>>m;
     for(int i = 1;i<=n;++i)cin>>g[i];
+    // 初始化这边没懂
+
     f[0][0] = 1;
     for(int i = 1;i<=n;++i){
         // 二维的思维
-        for(int j = 1;j<=m;++j){
+        for(int j = 0;j<=m;++j){
             // 当前 fij可以被划分为两个子集合 即包含物品i的集合和不包含物品i的集合 计算方法就是相加
-            if(j>g[i]) f[i][j] = f[i-1][j] + f[i-1][j-g[i]];
-            else f[i][j] = f[i-1][j];
+            f[i][j] = f[i-1][j];
+            if(j>=g[i]) f[i][j] += f[i-1][j-g[i]];
+
         }
 //        for(int j = m;j>=g[i];--j)
 //            f[j] = max(f[j],f[j-g[i]]+1);
     }
-    cout<<f[m]<<endl;
+    cout<<f[n][m]<<endl;
     return 0;
 }
