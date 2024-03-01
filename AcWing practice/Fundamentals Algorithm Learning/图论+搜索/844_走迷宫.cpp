@@ -9,53 +9,54 @@
 //             unordered_map.find() 查找成功和不成功返回什么
 #include<iostream>
 #include<queue>
-#include<unordered_map>
-#include<cstring>
 using namespace std;
 
+#define x first
+#define y second
 
-const int N = 3;
-string str;
-int dis_x[] = {-1,0,1,0};
-int dis_y[] = {0,-1,0,1};
+const int N = 101;
 
-int bfs(){
+typedef pair<int,int> PII;
 
-    int res = 0;
-    unordered_map<string,int> state;
-    queue<string> q;
-    q.push(str);
-    state.insert({str,0});
+
+int G[N][N];
+bool st[N][N];
+int len[N][N]; // 使用额外的空间记录到达此点时候的路径最短。
+int d_x[4] = {0, 1, 0, -1};
+int d_y[4] = {1, 0, -1, 0};
+int n,m;
+
+
+void bfs(){
+    queue<PII> q;
+    q.push({1,1});
+    st[1][1] = true;
     while(!q.empty()){
-        auto t = q.front();
+        auto f = q.front();
         q.pop();
-//        int y = t.find('x')%3,x = t.find('x')/3; // t 对应的 x 和 y下标的映射 计算
+        if(f.x==n && f.y==m)
+            return;
         for(int i = 0;i<4;++i){
-            int x = t.find('x')/3+dis_x[i];
-            int y = t.find('x')%3 +dis_y[i];
-            int pos = y+x*3;// 从x y到string一维下标的映射
-            int step = state[t];
-            string s = t;
-            swap(s[s.find('x')],s[pos]);
-            if(y<0 || x<0 || y>=3 || x>=3 || state.find(s)!=state.end()) continue;
-            q.push(s);
-            state.insert({s,step+1});
+            int x = f.x + d_x[i];
+            int y = f.y + d_y[i];
+            if(x >n || y > m || x<1 || y<1 || st[x][y] || G[x][y]) continue;
+            st[x][y] = true;
+            q.push({x,y});
+            len[x][y] = len[f.x][f.y]+1;
         }
     }
-    return (state.find("12345678x")==state.end()?-1:state["12345678x"]);
-
 }
 
 
-
 int main(){
-    for(int i = 0;i<9;++i){
-        char t;
-        cin>>t;
-        str = str+t;
-    }
-    // int y = str.find('x')%3,x = str.find('x')/3;
-    // cout<<x<<" "<<y<<endl;
-    cout<<bfs()<<endl;
+    cin>>n>>m;
+    for(int i = 1;i<=n;++i)
+        for(int j = 1;j<=m;++j)
+            cin>>G[i][j];
+
+    bfs();
+    cout<<len[n][m];
+
+
     return 0;
 }
