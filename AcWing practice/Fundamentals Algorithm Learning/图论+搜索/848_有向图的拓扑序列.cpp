@@ -64,3 +64,51 @@ int main(){
         for(auto x:res_seq)cout<<x<<" ";
     return 0;
 }
+//
+//#include<iostream>
+//#include<vector>
+//#include<queue>
+//using namespace std;
+//
+//const int N = 100010;
+//vector<int> graph[N];
+//vector<int> res;
+//int ind[N]; // 记录节点入度；
+//int n,m;
+//
+//
+//void top_sort(){
+//    queue<int> q;
+//    for(int i = 1;i <= n; ++ i){
+//        if(!ind[i])
+//            q.push(i);
+//    }
+//    while(!q.empty()){
+//        int x = q.front();
+//        res.push_back(x);
+//        q.pop();
+//        for(auto y:graph[x]){
+//            if((--ind[y])==0)
+//                q.push(y);
+//        }
+//    }
+//
+//}
+//int main(){
+//    cin>>n>>m;
+//    for(int i = 0;i<m;++i){
+//        int x,y;
+//        cin>>x>>y;
+//        graph[x].push_back(y);
+//        ind[y]++;
+//    }
+//
+//    top_sort();
+//    if(res.size()==n)
+//        for(auto x:res)
+//            cout<<x<<' ';
+//    else
+//        cout<<-1;
+//    return 0;
+//}
+
