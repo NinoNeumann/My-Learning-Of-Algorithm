@@ -27,7 +27,7 @@ int count_prime(int x){
     int cnt = 0;
     for(int i = 2;i<=x;++i){
         if(!st[i]){
-            cnt++;
+            cnt++; // 可以在这步将质数存入到某个数据结构中
             for(int j = i+i;j<=x;j+=i)
                 st[j] = true;
         }
@@ -35,7 +35,7 @@ int count_prime(int x){
 }
 // 线性筛法
 int count_prime(int x){
-    int cnt = 0;
+    int cnt = 0; // 线性筛法必须要将前面的素数存储下来
     for(int i = 2;i<=x;++i){
         if(!st[i]) primes[cnt++] = i;
         for(int j=0;primes[j]<=x/i;++j){

@@ -23,7 +23,18 @@ vector<edge> edges;
 int dist[N],backup[N];
 
 int n,m,k;
-
+// bellman ford算法
+/*
+ * 1、算法可以计算最多经过多少条边后 （单源最短距离）
+ * 2、出发点到其他边的最短距离 使用 dist数组记录
+ * 3、dist数组初始化为 INF （因为你要求最短距离）
+ * 4、我们需要的只是边
+ * 5、经过最少k条边的k次循环后，
+ * 6、memcpy dist 数组到backup
+ * 7、遍历所有边 更新dist【y】距离 min(dist（backup）[x]+g[x][y],dist[y])
+ *
+ *
+ * */
 
 void bellman_ford(){
     memset(dist,0x3f,sizeof dist);

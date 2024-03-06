@@ -28,6 +28,7 @@ int n,m;
 bool spfa(){
     memset(dist,0x3f,sizeof dist);
     queue<int> q;
+    // 有可能1号点无法到达负环
     for(int i = 1;i<=n;++i){
         q.push(i);
         st[i] = true;
